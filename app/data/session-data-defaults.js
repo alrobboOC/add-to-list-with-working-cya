@@ -1,5 +1,5 @@
 module.exports = {
 
-  // Insert values here
+  // users: require('./fakeusers.json') // this creates session.data['users']
 
 }

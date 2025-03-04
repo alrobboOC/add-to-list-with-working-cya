@@ -1,0 +1,53 @@
+{% extends "layouts/main.html" %}
+{% set serviceName="How to quickly reuse data" %}
+{% block pageTitle %}
+  Data-table example
+{% endblock %}
+
+{% block beforeContent %}
+  {{ govukBackLink({
+  text: "Back",
+  href: "javascript:window.history.back()"
+}) }}
+{% endblock %}
+
+{% block content %}
+
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+     <h1 class="govuk-heading-l">Scheme members</h1> 
+    
+     <table class="govuk-table">
+      <caption class="govuk-table__caption govuk-table__caption--m">All Members</caption>
+      <thead class="govuk-table__head">
+        <tr class="govuk-table__row">
+          <th scope="col" class="govuk-table__header">Name</th>
+          <th scope="col" class="govuk-table__header">Address</th>
+          <th scope="col" class="govuk-table__header"><span class="govuk-visually-hidden">Actions</span></th>
+        </tr>
+      </thead>
+      <tbody class="govuk-table__body"></tbody>          
+        {% for items in range(0, data['users'].length) %}
+          <tr class="govuk-table__row">
+            <td class="govuk-table__cell">{{data['users'][items].first_name}} {{data['users'][loop.index0].last_name}}</td>
+            <td class="govuk-table__cell">
+              {{data['users'][items].address1}},<br>
+              {{data['users'][loop.index0].city}},<br>
+              {{data['users'][loop.index0].county}}.<br>
+              {{data['users'][loop.index0].postcode}}
+            </td>
+            <td class="govuk-table__cell"><a href="view?currentrecord={{loop.index0}}">Change</td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+    
+        
+      
+      
+    
+      
+    </div>
+  </div>
+
+{% endblock %}

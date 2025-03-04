@@ -1,0 +1,67 @@
+{% extends "layouts/main.html" %}
+{% set serviceName="How to quickly reuse data" %}
+{% block pageTitle %}
+  Data-table example
+{% endblock %}
+
+{% block beforeContent %}
+  {{ govukBackLink({
+  text: "Back",
+  href: "javascript:window.history.back()"
+}) }}
+{% endblock %}
+
+{% block content %}
+
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+     <h1 class="govuk-heading-l">Member detail</h1> 
+    
+     <dl class="govuk-summary-list govuk-!-margin-bottom-9">
+      <div class="govuk-summary-list__row">
+        <dt class="govuk-summary-list__key">
+          Name
+        </dt>
+        <dd class="govuk-summary-list__value">
+          {{data['users'][data['currentrecord']].first_name}} {{data['users'][data['currentrecord']].last_name}}
+        </dd>
+      </div>
+
+      <div class="govuk-summary-list__row">
+        <dt class="govuk-summary-list__key">
+          Address
+        </dt>
+        <dd class="govuk-summary-list__value">
+          {{data['users'][data['currentrecord']].address1}}, <br>
+          {{data['users'][data['currentrecord']].city}}, <br>
+          {{data['users'][data['currentrecord']].county}} <br>
+          {{data['users'][data['currentrecord']].postcode}}
+        </dd>
+      </div>
+
+      <div class="govuk-summary-list__row">
+        <dt class="govuk-summary-list__key">
+          Company
+        </dt>
+        <dd class="govuk-summary-list__value">
+          {{data['users'][data['currentrecord']].company}} 
+        </dd>
+      </div>
+
+      <div class="govuk-summary-list__row">
+        <dt class="govuk-summary-list__key">
+          National Insurance Number
+        </dt>
+        <dd class="govuk-summary-list__value">
+          {{data['users'][data['currentrecord']].nino}}
+        </dd>
+      </div>
+      </dl>
+      
+      
+    
+      
+    </div>
+  </div>
+
+{% endblock %}
