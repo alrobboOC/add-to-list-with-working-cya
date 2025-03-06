@@ -1,1 +1,2 @@
-This example shows how to use a combination of objects and arrays to build a working add to list pattern.
+_Building a working HMRC 'Add to List' pattern_
+
