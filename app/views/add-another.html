@@ -35,7 +35,16 @@ You have added {{ data['people'].length| plural("person") }}
         {% endfor %}
       </dl>
     </div>
-        
+      {% if data['department'] == "DWP" %}
+      <div class="govuk-button-group">
+        <a href="confirmation" class="govuk-button" data-module="govuk-button">
+          Save and continue
+        </a>
+        <a href="name" class="govuk-button govuk-button--secondary" data-module="govuk-button">
+          Add another
+        </a
+      </div>
+      {% else %}
       <form method="post">
         <div class="govuk-form-group">
           <fieldset class="govuk-fieldset" aria-describedby="changedName-hint">
@@ -64,6 +73,7 @@ You have added {{ data['people'].length| plural("person") }}
           Save and continue
         </button>
       </form>
+      {% endif %}
       
     
       
