@@ -26,25 +26,25 @@
             </legend>
             <div class="govuk-radios" data-module="govuk-radios">
               <div class="govuk-radios__item">
-                <input class="govuk-radios__input" id="relationship" name="relationship" type="radio" value="A parent">
+                <input class="govuk-radios__input" id="relationship" name="relationship" type="radio" value="A parent" {% if data['relationship'] == "A parent" %}checked="checked"{%endif%}>
                 <label class="govuk-label govuk-radios__label" for="relationship">
                   A parent
                 </label>
               </div>
               <div class="govuk-radios__item">
-                <input class="govuk-radios__input" id="relationship-2" name="relationship" type="radio" value="A son or daughter">
+                <input class="govuk-radios__input" id="relationship-2" name="relationship" type="radio" value="A son or daughter" {% if data['relationship'] == "A son or daughter" %}checked="checked"{%endif%}>
                 <label class="govuk-label govuk-radios__label" for="relationship-2">
                   A son or daughter
                 </label>
               </div>
               <div class="govuk-radios__item">
-                <input class="govuk-radios__input" id="relationship-3" name="relationship" type="radio" value="A wife or husband">
+                <input class="govuk-radios__input" id="relationship-3" name="relationship" type="radio" value="A wife or husband" {% if data['relationship'] == "A wife or husband" %}checked="checked"{%endif%}>
                 <label class="govuk-label govuk-radios__label" for="relationship-3">
                   A wife or husband
                 </label>
               </div>
               <div class="govuk-radios__item">
-                <input class="govuk-radios__input" id="relationship-4" name="relationship" type="radio" value="Other">
+                <input class="govuk-radios__input" id="relationship-4" name="relationship" type="radio" value="Other" {% if data['relationship'] == "Other" %}checked="checked"{%endif%}>
                 <label class="govuk-label govuk-radios__label" for="relationship-4">
                   Other
                 </label>

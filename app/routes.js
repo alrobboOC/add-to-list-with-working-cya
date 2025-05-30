@@ -11,15 +11,31 @@ const router = govukPrototypeKit.requests.setupRouter()
 
 
 router.post('/name', function(request, response) {
-    response.redirect("DoB")
+    if(request.session.data['check']==true){
+        response.redirect("cya")
+    }
+    else{
+        response.redirect("DoB")
+    }
+    
 });
 
 router.post('/DoB', function(request, response) {
-    response.redirect("relationship")
+    if(request.session.data['check']==true){
+        response.redirect("cya")
+    }
+    else{
+        response.redirect("relationship")
+    }
 });
 
 router.post('/relationship', function(request, response) {
-    response.redirect("cya")
+    if(request.session.data['check']==true){
+        response.redirect("cya")
+    }
+    else{
+        response.redirect("cya")
+    }
 });
 
 
@@ -31,29 +47,71 @@ router.post('/cya', function(request, response) {
     if(request.session.data['people']){
         temporaryArray = request.session.data['people']; //if we do we add this to our temporary array
     }
-
     // Step 2: We're going to create a new object
     // First we combine the three date inputs (day/month/year) and sets them as a date
     let createdDob = new Date(request.session.data['DoB-year'] +"-"+ request.session.data['DoB-month'] +"-"+ request.session.data['DoB-day']);
     // next we create a temporary object just for the data we've just captured
     let temporaryObject = {name: request.session.data['name'], dob: createdDob, relationship: request.session.data['relationship']};
 
-    // Step 3 : we push this new object to the temporary array. This will add on the new object to and old object pulled back from the session data above
-    temporaryArray.push(temporaryObject);
+
+    if(request.session.data['check']==true){
+        //if check is true we replace the values at the loop index rather than add another object
+        let x = request.session.data['loop'];
+        temporaryArray[x]=temporaryObject
+    }
+    else{
+        // Step 3 : we push this new object to the temporary array. This will add on the new object to and old object pulled back from the session data above
+        temporaryArray.push(temporaryObject);
+    }
+
+    
+    
 
     // Step 4 : We save eveything back to the session to use elsewhere in the service
     request.session.data['people'] = temporaryArray
-    
+    request.session.data['check']=false;
     response.redirect("add-another");
 });
 
 router.post('/add-another', function(request, response) {
     if(request.session.data['addAnother']=='yes'){
+        request.session.data['name'] = null;
+        request.session.data['DoB-day'] = null;
+        request.session.data['DoB-month'] = null;
+        request.session.data['DoB-year'] = null;
+        request.session.data['relationship'] = null;
         response.redirect("name");
     }
     else{
         response.redirect("confirmation");
     }
+});
+
+router.get('/fakePage', function(request, response) {
+    // Use a fake page to pull back the values for the record you've chsen to change
+
+    // just set a session to say youre in check mode this is used in the routes for the individual pages to know to go straight back to cya
+    request.session.data['check']=true;
+
+    //pull back the loop index from the add another page
+    let x = request.session.data['loop']
+
+    //create your tempoarary array as normal and pull pack the data from the person array
+    let temporaryArray = [];
+    temporaryArray = request.session.data['people']
+
+    //pull out the values for the record we're chaning and write them to the standard session we use when capturing the data
+    request.session.data['name'] = temporaryArray[x].name;
+    request.session.data['relationship'] = temporaryArray[x].relationship;
+
+    // as DoB is saved in the object as a date string we'll need to pull the individual values from the string
+    let DoB = temporaryArray[x].dob;
+    request.session.data['f'] = DoB; 
+    request.session.data['DoB-year'] = DoB.slice(0, 4); 
+    request.session.data['DoB-day'] = DoB.substring(8,10);
+    request.session.data['DoB-month'] = DoB.substring(5,7);
+      
+    response.redirect("cya");
 });
 
 
